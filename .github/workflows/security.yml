@@ -1,0 +1,31 @@
+name: Security & Dependency Scans
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 3 * * *'   # daily at 03:00 UTC
+
+jobs:
+  codeql:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: go
+      - name: Run CodeQL analysis
+        uses: github/codeql-action/analyze@v3
+
+  grype:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Grype vulnerability scan
+        uses: anchore/scan-action@v6
+        with:
+          image: golang:1.21-alpine
+          severity-cutoff: high
+          output-format: sarif
+
