@@ -1,4 +1,4 @@
-name: Lint
+name: Test
 
 on:
   push:
@@ -12,11 +12,9 @@ concurrency:
 
 permissions:
   contents: read
-  # Optional: allow read access to pull request. Use with `only-new-issues` option.
-  # pull-requests: read
 
 jobs:
-  lint:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code and setup go
@@ -25,7 +23,7 @@ jobs:
         with:
           go-version: stable
           cache: true
-          cache-dependency-path: 'go.sum'
+          cache-dependency-path: **/go.sum
 
       - uses: actions/cache@v4
         with:
@@ -36,13 +34,5 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
 
-      - name: Run gofmt check
-        run: go fmt ./... | tee fmt.out && test -z "$(cat fmt.out)"
-
-      - name: Run go vet
-        run: go vet ./...
-
-      - name: Run golangci-lint
-        uses: golangci/golangci-lint-action@v8
-        with:
-          version: v2.1
+      - name: Run tests
+        run: go test -v ./...

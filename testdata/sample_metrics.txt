@@ -1,0 +1,29 @@
+# HELP nexen_service_http_requests_total Total number of HTTP requests received
+# TYPE nexen_service_http_requests_total counter
+nexen_service_http_requests_total{method="GET",path="/api/v1/health"} 10
+nexen_service_http_requests_total{method="POST",path="/api/v1/completion"} 5
+
+# HELP nexen_service_http_request_duration_seconds Histogram of HTTP request durations
+# TYPE nexen_service_http_request_duration_seconds histogram
+nexen_service_http_request_duration_seconds_bucket{method="GET",path="/api/v1/health",le="0.005"} 5
+nexen_service_http_request_duration_seconds_bucket{method="GET",path="/api/v1/health",le="0.01"} 8
+nexen_service_http_request_duration_seconds_bucket{method="GET",path="/api/v1/health",le="0.025"} 9
+nexen_service_http_request_duration_seconds_bucket{method="GET",path="/api/v1/health",le="0.05"} 10
+nexen_service_http_request_duration_seconds_bucket{method="GET",path="/api/v1/health",le="0.1"} 10
+nexen_service_http_request_duration_seconds_bucket{method="GET",path="/api/v1/health",le="0.25"} 10
+nexen_service_http_request_duration_seconds_bucket{method="GET",path="/api/v1/health",le="0.5"} 10
+nexen_service_http_request_duration_seconds_bucket{method="GET",path="/api/v1/health",le="1"} 10
+nexen_service_http_request_duration_seconds_bucket{method="GET",path="/api/v1/health",le="2.5"} 10
+nexen_service_http_request_duration_seconds_bucket{method="GET",path="/api/v1/health",le="5"} 10
+nexen_service_http_request_duration_seconds_bucket{method="GET",path="/api/v1/health",le="10"} 10
+nexen_service_http_request_duration_seconds_bucket{method="GET",path="/api/v1/health",le="+Inf"} 10
+nexen_service_http_request_duration_seconds_sum{method="GET",path="/api/v1/health"} 0.045
+nexen_service_http_request_duration_seconds_count{method="GET",path="/api/v1/health"} 10
+
+# HELP nexen_service_http_errors_total Total number of HTTP responses with error status codes
+# TYPE nexen_service_http_errors_total counter
+nexen_service_http_errors_total{method="POST",path="/api/v1/completion",code="Internal Server Error"} 1
+
+# HELP go_goroutines Number of goroutines that currently exist
+# TYPE go_goroutines gauge
+go_goroutines 42
